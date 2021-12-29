@@ -1,2 +1,2 @@
 # web-scraper
-Web Scraper application for learning React and SQL
+Web Scraper application for learning React and Node.js
