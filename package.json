@@ -1,0 +1,23 @@
+{
+  "name": "web-scraper",
+  "version": "1.0.0",
+  "description": "Web Scraper application for learning Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/braedenb/web-scraper.git"
+  },
+  "author": "braedenb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/braedenb/web-scraper/issues"
+  },
+  "homepage": "https://github.com/braedenb/web-scraper#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10"
+  }
+}
