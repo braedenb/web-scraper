@@ -38,8 +38,17 @@ We’ll also wait for the page’s body tag to be loaded before proceeding with 
 			// Within that css-1uezbyg-GroupHeaderContainer object, the e7pc1841 object is the title link for the League
 			let leagueTitleLink = leagueHeaderContainer.querySelector('.e7pc1841');
 
+			let matchups = item.querySelectorAll('.ew7iiy60');
+
+			/*var teamNames;*/
+			//for (var index = 0; index < matchups.length; index++)
+			//{
+			let teamNames = matchups[0].querySelectorAll('.e1o4kpy50');
+			//}
+
 			scrapeItems.push({
-				leagueName: leagueTitleLink ? leagueTitleLink.innerText : null
+				League: leagueTitleLink ? leagueTitleLink.innerText : null,
+				Fixture: teamNames[0].innerText + " vs " + teamNames[1].innerText
 			});
 			
 		});
