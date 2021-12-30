@@ -56,10 +56,10 @@ We’ll also wait for the page’s body tag to be loaded before proceeding with 
 	// close the browser
 	await browser.close ();
 	
+})
+.catch (function (err) {
+	
+	// log any errors experienced during the scraping process.
+    console.error (err);
+	
 });
-// .catch (function (err) {
-	
-	// // log any errors experienced during the scraping process.
-    // console.error (err);
-	
-// });
