@@ -23,7 +23,7 @@ We’ll also wait for the page’s body tag to be loaded before proceeding with 
 	With the function, we can execute arbitrary JavaScript in Chrome 
 	and use its built-in functions, such as querySelector(), to manipulate the page and retrieve its contents.
 	*/
-	let grabLeagues = await page.evaluate(() => {
+	let grabMatches = await page.evaluate(() => {
 
 		// each League is separated into a e7pc1842 object
 		let allLeagues = document.body.querySelectorAll('.e7pc1842');
@@ -31,30 +31,32 @@ We’ll also wait for the page’s body tag to be loaded before proceeding with 
 		// storing the allLeagues items in an array then selecting for retrieving content
 
 		scrapeItems = [];
-		allLeagues.forEach(item => {
+		allLeagues.forEach(league => {
 
-			// Within that css-cd44bc-Group object, the e7pc1843 object is the header container for the League
-			let leagueHeaderContainer = item.querySelector('.e7pc1843');
-			// Within that css-1uezbyg-GroupHeaderContainer object, the e7pc1841 object is the title link for the League
+			// Within the e7pc1842 object, the e7pc1843 object is the header container for the league
+			let leagueHeaderContainer = league.querySelector('.e7pc1843');
+			// Within the e7pc1843 object, the e7pc1841 object is the title link for the league
 			let leagueTitleLink = leagueHeaderContainer.querySelector('.e7pc1841');
 
-			let matchups = item.querySelectorAll('.ew7iiy60');
+			// Within the e7pc1842 object, the ew7iiy60 objects are the match wrappers for the league
+			let matchWrappers = league.querySelectorAll('.ew7iiy60');
 
-			/*var teamNames;*/
-			//for (var index = 0; index < matchups.length; index++)
-			//{
-			let teamNames = matchups[0].querySelectorAll('.e1o4kpy50');
-			//}
+			matchWrappers.forEach(match => {
 
-			scrapeItems.push({
-				League: leagueTitleLink ? leagueTitleLink.innerText : null,
-				Fixture: teamNames[0].innerText + " vs " + teamNames[1].innerText
+				// Within the ew7iiy60 object, the e1o4kpy50 objects are the team names for the match
+				let teamNames = match.querySelectorAll('.e1o4kpy50');
+
+				scrapeItems.push({
+					League: leagueTitleLink ? leagueTitleLink.innerText : null,
+					Match: teamNames ? teamNames[0].innerText + " vs " + teamNames[1].innerText : null
+				});
+
 			});
 			
 		});
 
 		let items = {
-		  "FotmobLeagues": scrapeItems,
+		  "Fotmob Matches": scrapeItems,
 		};
 
 		return items;
@@ -62,7 +64,7 @@ We’ll also wait for the page’s body tag to be loaded before proceeding with 
 	});
 
 	// outputting the scraped data
-	console.log(grabLeagues);
+	console.log(grabMatches);
 	
 	// close the browser
 	await browser.close();
