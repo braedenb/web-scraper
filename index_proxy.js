@@ -18,7 +18,8 @@ function proxyGenerator() {
     request("https://sslproxies.org/", function (error, response, html) {
 
         // If there are no errors and the request is successful, we used Cheerio to the load the HTML we received from the response
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode == 200)
+        {
             const $ = cheerio.load(html);
 
             /*
@@ -37,7 +38,8 @@ function proxyGenerator() {
                 port_numbers[index] = $(this).text();
             });
         }
-        else {
+        else
+        {
             console.log("Error loading proxy, please try again");
         }
 
@@ -68,8 +70,31 @@ function proxyGenerator() {
          * rather than single quotes - to create a template literal.
          */
         let proxy = `http://${ip_addresses[random_number]}:${port_numbers[random_number]}`;
-        console.log(proxy);
+        //console.log(proxy);
 
     });
 
 }
+
+/*
+ * provide an object of options in the first argument of the request function. 
+ * Then, we’ll specify a proxy option and call the previously created proxyGenerator() function, which produces random proxies
+ */
+const options = {
+    url: "https://www.forextradingbig.com/10-facts-you-must-know-on-online-forex-trading/",
+    method: "GET",
+    proxy: proxyGenerator()
+};
+
+request(options, function (error, response, html) {
+
+    if (!error && response.statusCode == 200) {
+        const $ = cheerio.load(html);
+        let article_headings = $("h2").text();
+        console.log(article_headings);
+    }
+    else {
+        console.log("Error scraping site, please try again");
+    }
+
+});
